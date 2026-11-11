@@ -1,0 +1,12 @@
+{
+  "name": "fmsuperscout",
+  "version": "1.5.0-fm27.2",
+  "private": true,
+  "description": "Local read-only scouting viewer for Steam Football Manager 27",
+  "scripts": {
+    "start": "node app/server.js",
+    "test": "node --test test/*.test.js",
+    "test:reader": "dotnet run --project test/ReaderTests.csproj"
+  },
+  "license": "MIT"
+}

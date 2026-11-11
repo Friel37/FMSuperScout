@@ -1,0 +1,9 @@
+﻿{
+    "version":  "1.5.0-fm27.2",
+    "sdk":  "10.0.403",
+    "source":  "https://github.com/Laurentiu-Andronache/FMSuperScout",
+    "target":  "win-x64",
+    "nodeVersion":  "v24.22.2",
+    "selfContained":  true,
+    "sourceRevision":  "9b04e1e666041f58edf7f48400f5955a70e526a5"
+}

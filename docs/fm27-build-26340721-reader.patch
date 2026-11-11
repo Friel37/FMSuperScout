@@ -1,0 +1,101 @@
+diff --git a/reader/Dumper.cs b/reader/Dumper.cs
+index 42d974f..7e10e51 100644
+--- a/reader/Dumper.cs
++++ b/reader/Dumper.cs
+@@ -158,18 +158,18 @@ internal static class Dumper
+         var clubObjs = new List<ulong>();                        // gedetecteerde club-objecten
+         long candidates = 0, vtGp = 0, women = 0;
+ 
+-        var playerPointers = mem.ArrayAt(0x57037D0);
+-        var staffPointers = mem.ArrayAt(0x5703818);
+-        var clubPointers = mem.ArrayAt(0x5703988);
++        var playerPointers = mem.ArrayAt(0x57057D0);
++        var staffPointers = mem.ArrayAt(0x5705818);
++        var clubPointers = mem.ArrayAt(0x5705988);
+         if (playerPointers.Length == 0) throw new InvalidOperationException("No loaded save found.");
+         clubObjs.AddRange(clubPointers);
+         int done = 0, total = playerPointers.Length + staffPointers.Length;
+         foreach (ulong basePtr in playerPointers.Concat(staffPointers)) {
+             bool isPlayer = done < playerPointers.Length;
+             ulong vt = mem.Ptr(basePtr);
+-            if (!isPlayer && vt - mem.GpBase == 0x4F759F0) { done++; continue; } // Player-coach already in player array.
+-            int off = isPlayer ? (vt - mem.GpBase == 0x4F75A08 ? 0x380 : 0x288)
+-                               : (vt - mem.GpBase == 0x4CC086C ? 0x440 : 0x100);
++            if (!isPlayer && vt - mem.GpBase == 0x4F779F0) { done++; continue; } // Player-coach already in player array.
++            int off = isPlayer ? (vt - mem.GpBase == 0x4F77A08 ? 0x380 : 0x288)
++                               : (vt - mem.GpBase == 0x4CC286C ? 0x440 : 0x100);
+             ulong person = basePtr + (ulong)off;
+             if (mem.DynamicOffsetFromVtable(mem.Ptr(person)) != off) throw new InvalidOperationException($"Unexpected person layout: index={done}, player={isPlayer}, vtable={vt-mem.GpBase:X}, expected={off:X}, actual={mem.DynamicOffsetFromVtable(mem.Ptr(person)):X}. Existing data was kept.");
+             uint uid = mem.U32(person + Fields.OBJ_DUNI);
+@@ -390,7 +390,7 @@ internal static class Dumper
+         }
+         WriteStatus("scanning", players.Count, staff.Count, null, 0.90);
+ 
+-        if (!playerPointers.SequenceEqual(mem.ArrayAt(0x57037D0)) || !staffPointers.SequenceEqual(mem.ArrayAt(0x5703818)))
++        if (!playerPointers.SequenceEqual(mem.ArrayAt(0x57057D0)) || !staffPointers.SequenceEqual(mem.ArrayAt(0x5705818)))
+             throw new InvalidOperationException("Save changed during reading. Retry with the game paused.");
+         WriteJson(players.Values, staff.Values);
+         Phase("JSON schrijven");
+@@ -782,7 +782,7 @@ internal static class Dumper
+         }
+         j.Prop("gameYear", gy);
+         j.Prop("readerVersion", ReaderHost.Version);
+-        j.Prop("steamBuildId", "26227640");
++        j.Prop("steamBuildId", Fields.SUPPORTED_STEAM_BUILD);
+         j.Prop("gameVersion", GameVersion);
+         j.Prop("supportedVersion", Fields.SUPPORTED_VERSION);
+         j.Prop("versionOk", VersionOk);
+diff --git a/reader/Fields.cs b/reader/Fields.cs
+index df6745a..8545df6 100644
+--- a/reader/Fields.cs
++++ b/reader/Fields.cs
+@@ -1,7 +1,7 @@
+ namespace FMSuperScout;
+ 
+ /// <summary>
+-/// FM27 offsets (Steam build 26227640); inherited field definitions, ontleend aan de gedecompileerde Cheat Engine-tabellen
++/// FM27 offsets (Steam build 26340721); inherited field definitions, ontleend aan de gedecompileerde Cheat Engine-tabellen
+ /// (tdg6661, gepind op FM 26.3.x — game_plugin.dll 26.3.0/26.3.2).
+ /// Alle offsets zijn t.o.v. een objectbasis; zie commentaar per groep.
+ /// </summary>
+@@ -12,7 +12,8 @@ internal static class Fields
+     // mogelijk onbetrouwbaar is tot de offsets opnieuw geverifieerd zijn.
+     public const int SUPPORTED_MAJOR = 27;
+     public const int SUPPORTED_MINOR = 0;
+-    public const string SUPPORTED_VERSION = "27.0.0+2486695";
++    public const string SUPPORTED_VERSION = "27.0.0+2493426";
++    public const string SUPPORTED_STEAM_BUILD = "26340721";
+ 
+     // --- Object-header (elk DB-object) ---
+     public const int OBJ_DUNI = 0x0C;         // uint32 Unique ID (UID)
+diff --git a/reader/Program.cs b/reader/Program.cs
+index 933ce66..9bfca9a 100644
+--- a/reader/Program.cs
++++ b/reader/Program.cs
+@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
+ using Microsoft.Win32;
+ namespace FMSuperScout;
+ internal static class ReaderHost {
+- public const string Version = "1.5.0-fm27.1";
++ public const string Version = "1.5.0-fm27.2";
+  public static int ProcessId;
+  public static string DataDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"FMSuperScout","FM27");
+  public static readonly ReaderLog Log = new();
+@@ -22,7 +22,7 @@ internal static class ReaderHost {
+    string dir=Path.GetFullPath(Path.Combine(lib,"steamapps","common",Get("installdir")));
+    string dll=Path.Combine(dir,"fm_Data","Plugins","x86_64","game_plugin.dll");
+    string ver=File.Exists(dll)?FileVersionInfo.GetVersionInfo(dll).ProductVersion:null;
+-   bool supported=ver==Fields.SUPPORTED_VERSION && Get("buildid")=="26227640";
++   bool supported=ver==Fields.SUPPORTED_VERSION && Get("buildid")==Fields.SUPPORTED_STEAM_BUILD;
+    ProcessId=0;
+    foreach(var p in Process.GetProcessesByName("fm")) using(p) {try {if(string.Equals(p.MainModule.FileName,Path.Combine(dir,"fm.exe"),StringComparison.OrdinalIgnoreCase))ProcessId=p.Id;}catch{}}
+    return new {installed=true,running=ProcessId!=0,supported,processId=ProcessId,gameDir=dir,productVersion=ver,steamBuildId=Get("buildid")};
+@@ -40,7 +40,7 @@ internal static class ReaderHost {
+    bool owned;try{owned=mutex.WaitOne(0);}catch(AbandonedMutexException){owned=true;}
+    if(!owned) {Console.Error.WriteLine("A read is already running.");return 3;}
+    try {
+-    if(!probe.GetProperty("supported").GetBoolean())throw new Exception("Unsupported FM build. Expected Steam 26227640 / 27.0.0+2486695.");
++    if(!probe.GetProperty("supported").GetBoolean())throw new Exception($"Unsupported FM build. Expected Steam {Fields.SUPPORTED_STEAM_BUILD} / {Fields.SUPPORTED_VERSION}.");
+     if(ProcessId==0)throw new Exception("Start FM27 and load your save first.");
+     Dumper.DumpAll();
+     var status=JsonDocument.Parse(File.ReadAllText(Path.Combine(DataDir,"status.json")));
