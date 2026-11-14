@@ -3,8 +3,8 @@
 This branch uses an external, read-only .NET reader and the existing local web viewer.
 BepInEx, game-folder changes and the in-game F9 hotkey are not used.
 
-Supported: Steam App ID 4530370, build 26385295 (full release), game_plugin.dll product version
-27.0.1+2494687. Other builds are rejected until their memory layout is verified.
+Supported: Steam App ID 4530370, build 26577676, game_plugin.dll product version
+27.0.1+2503222. Other builds are rejected until their memory layout is verified.
 
 ## Start
 

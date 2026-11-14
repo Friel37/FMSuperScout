@@ -40,6 +40,7 @@ const MIME = {
   '.json': 'application/json; charset=utf-8',
   '.svg': 'image/svg+xml',
   '.png': 'image/png',
+  '.woff2': 'font/woff2',
 };
 
 // ---------- zelf-update ----------
@@ -562,8 +563,13 @@ const server = http.createServer((req, res) => {
     // Zonder error-handler is een leesfout (dump net vervangen/gelockt door de plugin) een
     // unhandled 'error'-event dat het hele proces killt. Afbreken; de app meldt dan zelf
     // een onvolledige dump en de volgende poging slaagt gewoon.
-    const rs = fs.createReadStream(dump.full);
+    const rs = fs.createReadStream(dump.full, { highWaterMark: 1 << 20 });
     rs.on('error', () => res.destroy());
+    // De reader vervangt dump.json pas als er geen handle meer openstaat. Zonder dit
+    // blijft een afgebroken of nog lopende load het bestand vasthouden en faalt
+    // "Nieuwe data" met "Access to the path is denied."
+    const release = () => { if (!rs.destroyed) rs.destroy(); };
+    res.on('close', release);
     rs.pipe(res);
     return;
   }

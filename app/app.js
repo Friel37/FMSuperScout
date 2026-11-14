@@ -63,7 +63,7 @@ const I18N = {
     alreadyDonated: 'Al gedoneerd?', neverAsk: 'Vraag het niet meer',
     supporterThanks: 'Dank je wel! Je hoort er niets meer over.',
     donateCta: '☕ Trakteer', donateLater: 'Later',
-    position: 'Positie', clear: 'wis', staffrole: 'Staf-rol', quality: 'Kwaliteit & leeftijd',
+    position: 'Positie', selectAllPos: 'Alle posities', clear: 'wis', staffrole: 'Staf-rol', quality: 'Kwaliteit & leeftijd',
     age: 'Leeftijd', financial: 'Financieel', maxvalue: 'Max. waarde', maxfee: 'Max. vraagprijs', maxwage: 'Max. loon',
     esSetupTitle: 'Start Football Manager 27 eerst een keer',
     esSetupBody: 'De eerste start na de installatie duurt 1 tot 3 minuten langer en toont een zwart consolevenster. Dat hoort zo: de mod-laag bouwt eenmalig zijn bestanden. Laat het venster open staan, ook als FM lijkt te hangen.',
@@ -174,7 +174,7 @@ const I18N = {
     wagePer: 'Salaris per', perWeek: 'week', perMonth: 'maand', perYear: 'jaar',
     perWeekSuf: 'p/w', perMonthSuf: 'p/mnd', perYearSuf: 'p/jr', jobStaff: 'Staflid',
     c_meta: 'Meta', metaLabel: 'Meta-score', c_metapa: 'PA-meta',
-    metaHint: 'Gewogen gemiddelde (1-20) van de attributen die volgens FM-Arena\'s match-engine-tests wedstrijden winnen; Snelheid en Versnelling tellen veruit het zwaarst. Keepers: eigen weging uit de keeperstest (Reflexen, Behendigheid).\n\n15+ elite, 13-15 sterk, 11-13 degelijk. Bij gelijke CA presteert de hoogste Meta meestal beter.',
+    metaHint: 'Gewogen gemiddelde (1-20) van de veldspeler-aandelen. Snelheid, sprongkracht, versnelling en uithoudingsvermogen tellen het zwaarst. Keepers: eigen weging uit de keeperstest (Reflexen, Behendigheid).\n\n15+ elite, 13-15 sterk, 11-13 degelijk.',
     metaPaHint: 'Dezelfde meta-weging, toegepast op de attributen die hij op zijn potentieel (PA) naar verwachting haalt. Projectie volgt het groeiprofiel van zijn positiegroep; fysieke groei stopt na 23.\n\nUitontwikkeld = gelijk aan Meta. Sorteer hierop voor de meta-toppers van morgen.',
     verWarn: 'FM-versie {v} gedetecteerd; de uitlezing is geijkt op {s}.x. Data mogelijk onbetrouwbaar tot een update van FMSuperScout.',
     verWarnOldDump: 'Deze data komt van een oudere FMSuperScout-plugin. Alles werkt, maar haal verse data op (Nieuwe data in FM27 met je save geladen) voor het beste resultaat.',
@@ -216,7 +216,7 @@ const I18N = {
     alreadyDonated: 'Already donated?', neverAsk: 'Don\'t ask again',
     supporterThanks: 'Thank you! You won\'t hear about this again.',
     donateCta: '☕ Buy me a coffee', donateLater: 'Maybe later',
-    position: 'Position', clear: 'clear', staffrole: 'Staff role', quality: 'Quality & age',
+    position: 'Position', selectAllPos: 'All positions', clear: 'clear', staffrole: 'Staff role', quality: 'Quality & age',
     age: 'Age', financial: 'Financial', maxvalue: 'Max. value', maxfee: 'Max. asking price', maxwage: 'Max. wage',
     esSetupTitle: 'Start Football Manager 27 once first',
     esSetupBody: 'The first launch after installing takes 1 to 3 minutes longer and shows a black console window. That is normal: the mod layer builds its files once. Leave the window open, even if FM looks stuck.',
@@ -327,7 +327,7 @@ const I18N = {
     wagePer: 'Wage per', perWeek: 'week', perMonth: 'month', perYear: 'year',
     perWeekSuf: '/wk', perMonthSuf: '/mo', perYearSuf: '/yr', jobStaff: 'Staff member',
     c_meta: 'Meta', metaLabel: 'Meta score', c_metapa: 'PA meta',
-    metaHint: 'Weighted average (1-20) of the attributes that win matches according to FM-Arena\'s match-engine tests; Pace and Acceleration count heaviest by far. Goalkeepers: own weighting from the keeper test (Reflexes, Agility).\n\n15+ elite, 13-15 strong, 11-13 decent. At equal CA the higher Meta usually performs better.',
+    metaHint: 'Weighted average (1-20) of the outfield attribute shares. Pace, Jumping Reach, Acceleration and Stamina count most. Goalkeepers: own weighting from the keeper test (Reflexes, Agility).\n\n15+ elite, 13-15 strong, 11-13 decent.',
     metaPaHint: 'The same meta weighting, applied to the attributes he is expected to reach at his potential (PA). The projection follows his position group\'s growth profile; physical growth stops after 23.\n\nFully developed = same as Meta. Sort on this for tomorrow\'s meta stars.',
     verWarn: 'FM version {v} detected; memory reading is calibrated for {s}.x. Data may be unreliable until FMSuperScout is updated.',
     verWarnOldDump: 'This data was made by an older FMSuperScout plugin. Everything works, but fetch fresh data (New data in FM27 with your save loaded) for the best results.',
@@ -369,7 +369,7 @@ const I18N = {
     alreadyDonated: 'Déjà donné ?', neverAsk: 'Ne plus demander',
     supporterThanks: 'Merci ! Vous n\'en entendrez plus parler.',
     donateCta: '☕ Offrir un café', donateLater: 'Plus tard',
-    position: 'Poste', clear: 'effacer', staffrole: 'Rôle du staff', quality: 'Qualité et âge',
+    position: 'Poste', selectAllPos: 'Tous les postes', clear: 'effacer', staffrole: 'Rôle du staff', quality: 'Qualité et âge',
     age: 'Âge', financial: 'Finances', maxvalue: 'Valeur max.', maxfee: 'Prix demandé max.', maxwage: 'Salaire max.',
     esSetupTitle: 'Lancez d\'abord Football Manager 27 une fois',
     esSetupBody: 'Le premier lancement après l\'installation prend 1 à 3 minutes de plus et affiche une console noire. C\'est normal : la couche de mods génère ses fichiers une seule fois. Laissez la fenêtre ouverte, même si FM semble figé.',
@@ -480,7 +480,7 @@ const I18N = {
     wagePer: 'Salaire par', perWeek: 'semaine', perMonth: 'mois', perYear: 'an',
     perWeekSuf: '/sem', perMonthSuf: '/mois', perYearSuf: '/an', jobStaff: 'Membre du staff',
     c_meta: 'Méta', metaLabel: 'Score méta', c_metapa: 'Méta PA',
-    metaHint: 'Moyenne pondérée (1-20) des attributs qui gagnent des matchs selon les tests du moteur de FM-Arena ; Vitesse et Accélération pèsent de loin le plus lourd. Gardiens : pondération propre issue du test des gardiens (Réflexes, Agilité).\n\n15+ élite, 13-15 fort, 11-13 correct. À CA égale, le Méta le plus haut performe en général mieux.',
+    metaHint: 'Moyenne pondérée (1-20) des parts d\'attributs des joueurs de champ. Vitesse, détente, accélération et endurance pèsent le plus. Gardiens : pondération propre issue du test des gardiens (Réflexes, Agilité).\n\n15+ élite, 13-15 fort, 11-13 correct.',
     metaPaHint: 'La même pondération méta, appliquée aux attributs qu\'il devrait atteindre à son potentiel (PA). La projection suit le profil de progression de son groupe de postes ; le physique cesse de progresser après 23 ans.\n\nJoueur abouti = identique au Méta. Triez dessus pour trouver les stars méta de demain.',
     verWarn: 'Version FM {v} détectée ; la lecture est calibrée pour {s}.x. Données possiblement peu fiables avant une mise à jour de FMSuperScout.',
     verWarnOldDump: 'Ces données viennent d\'un plugin FMSuperScout plus ancien. Tout fonctionne, mais rechargez des données fraîches (Nouvelles données dans FM27, sauvegarde chargée) pour un meilleur résultat.',
@@ -522,7 +522,7 @@ const I18N = {
     alreadyDonated: 'Schon gespendet?', neverAsk: 'Nicht mehr fragen',
     supporterThanks: 'Danke! Du hörst nichts mehr davon.',
     donateCta: '☕ Kaffee spendieren', donateLater: 'Später',
-    position: 'Position', clear: 'leeren', staffrole: 'Mitarbeiterrolle', quality: 'Qualität & Alter',
+    position: 'Position', selectAllPos: 'Alle Positionen', clear: 'leeren', staffrole: 'Mitarbeiterrolle', quality: 'Qualität & Alter',
     age: 'Alter', financial: 'Finanzen', maxvalue: 'Max. Wert', maxfee: 'Max. Forderung', maxwage: 'Max. Gehalt',
     esSetupTitle: 'Starte Football Manager 27 zuerst einmal',
     esSetupBody: 'Der erste Start nach der Installation dauert 1 bis 3 Minuten länger und zeigt ein schwarzes Konsolenfenster. Das ist normal: Die Mod-Ebene erzeugt einmalig ihre Dateien. Fenster offen lassen, auch wenn FM zu hängen scheint.',
@@ -633,7 +633,7 @@ const I18N = {
     wagePer: 'Gehalt pro', perWeek: 'Woche', perMonth: 'Monat', perYear: 'Jahr',
     perWeekSuf: '/Wo', perMonthSuf: '/Mon.', perYearSuf: '/Jahr', jobStaff: 'Mitarbeiter',
     c_meta: 'Meta', metaLabel: 'Meta-Score', c_metapa: 'PA-Meta',
-    metaHint: 'Gewichteter Durchschnitt (1-20) der Attribute, die laut FM-Arenas Match-Engine-Tests Spiele gewinnen; Schnelligkeit und Antritt zählen mit Abstand am meisten. Torhüter: eigene Gewichtung aus dem Torwart-Test (Reflexe, Beweglichkeit).\n\n15+ Elite, 13-15 stark, 11-13 solide. Bei gleicher CA spielt der höhere Meta meist besser.',
+    metaHint: 'Gewichteter Durchschnitt (1-20) der Feldspieler-Anteile. Schnelligkeit, Sprungkraft, Antritt und Ausdauer zählen am meisten. Torhüter: eigene Gewichtung aus dem Torwart-Test (Reflexe, Beweglichkeit).\n\n15+ Elite, 13-15 stark, 11-13 solide.',
     metaPaHint: 'Dieselbe Meta-Gewichtung, angewandt auf die Attribute, die er an seinem Potenzial (PA) voraussichtlich erreicht. Die Projektion folgt dem Wachstumsprofil seiner Positionsgruppe; Physis wächst nach 23 nicht mehr.\n\nAusentwickelt = gleich Meta. Sortiere danach für die Meta-Stars von morgen.',
     verWarn: 'FM-Version {v} erkannt; das Auslesen ist auf {s}.x geeicht. Daten bis zu einem FMSuperScout-Update möglicherweise unzuverlässig.',
     verWarnOldDump: 'Diese Daten stammen von einem älteren FMSuperScout-Plugin. Alles funktioniert, aber hole frische Daten (Neue Daten in FM27 mit geladenem Spielstand) für das beste Ergebnis.',
@@ -1612,17 +1612,17 @@ function bestRoles(p, n = 5) {
 }
 const roleClass = v => v == null ? '' : v >= 15 ? 'g5' : v >= 13 ? 'g4' : v >= 10.5 ? 'g3' : v >= 8 ? 'g2' : 'g1';
 
-// ---------- meta-score (FM-Arena attribute testing) ----------
-// Gewichten = de gemeten punten-impact per attribuut uit FM-Arena's attribute testing
-// (fm-arena.com/table/26-player-attributes-testing): per attribuut werd het effect op de
-// teamprestatie in de match engine gemeten. Snelheid/Versnelling domineren met afstand.
-// De score (1-20-schaal, key = zwaarder) zegt dus "hoe meta is deze speler", los van rol of CA.
-// Attributen zonder meetbaar positief effect tellen niet mee; keepers vallen buiten de test.
+// ---------- meta-score (attribuut-aandelen, kolom 18) ----------
+// Veldspelers: het getal is het aandeel van dat attribuut. 0 en negatieve aandelen
+// tellen niet mee. De score blijft een gewogen gemiddelde op de 1-20-schaal:
+// som(waarde × aandeel) / som(aandelen). Keepers houden hun eigen weging; de
+// aandelen-tabel dekt geen keeperattributen.
 const META_W = {
-  Pace: 20.5, Acceleration: 20.4, JumpingReach: 11.6, Dribbling: 9.8, Balance: 5.3,
-  Concentration: 4.5, Anticipation: 4.3, Determination: 2.7, Agility: 2.7, Stamina: 2.5,
-  Strength: 1.9, FirstTouch: 1.5, Composure: 1.2, WorkRate: 1.1, Finishing: 1.1, Flair: 1.1,
-  LongShots: 1.0, Aggression: 1.0, Heading: 0.6, OffTheBall: 0.5,
+  Pace: 19.4, JumpingReach: 15.4, Acceleration: 15.4, Stamina: 14.0,
+  Pressure: 5.2, Anticipation: 4.8, Strength: 4.8, Concentration: 4.4,
+  Dribbling: 3.6, NaturalFitness: 2.8, Determination: 2.8, Positioning: 2.6,
+  Finishing: 2.2, Flair: 1.8, Bravery: 1.4, Consistency: 1.2,
+  Aggression: 1.2, Decisions: 1.2, Crossing: 0.6, Agility: 0.2,
 };
 // Keepers: eigen gewichten uit harvestgreen22's FM24-keeperhertest op FM-Arena
 // (fm-arena.com/thread/18816, winrate-effect per attribuut, 2000-7000 wedstrijden per
@@ -1630,11 +1630,21 @@ const META_W = {
 // test grofweg een kwart van dat van veldspelers. Pressure is bij ons een
 // persoonlijkheidsveld (p.pressure), geen attrs-key; weightedMeta pakt hem daar.
 const META_GK_W = { Reflexes: 12.8, Agility: 8.0, Acceleration: 4.7, Pressure: 4.1, Pace: 3.5, AerialReach: 3.4 };
+// Pressure en Consistency gebruiken 0 voor "onbekend". Een PA-projectie bevat die
+// verborgen velden niet; dan telt de huidige waarde mee.
+function metaAttr(p, attrs, k) {
+  if (k === 'Pressure') return p.pressure > 0 ? p.pressure : null;
+  let v = attrs ? attrs[k] : null;
+  if (v == null && p.attrs && attrs !== p.attrs) v = p.attrs[k];
+  if (v == null) return null;
+  if (k === 'Consistency' && !(v > 0)) return null;
+  return v;
+}
 function weightedMeta(p, attrs) {
   const W = (p.posArr || []).includes('GK') ? META_GK_W : META_W;
   let sum = 0, w = 0;
   for (const k in W) {
-    const v = k === 'Pressure' ? (p.pressure > 0 ? p.pressure : null) : attrs[k];
+    const v = metaAttr(p, attrs, k);
     if (v != null) { sum += v * W[k]; w += W[k]; }
   }
   return w ? sum / w : null;
@@ -1649,7 +1659,7 @@ function metaScore(p) {
 }
 // PA-meta: dezelfde weging, toegepast op de naar PA geprojecteerde attributen
 // (projectAttrs: positie-realistisch groeiprofiel, fysiek dooft uit na 23). Zonder
-// restpotentieel is de projectie leeg en is de potentie per definitie de huidige score.
+// restpotentieel is de projectie leeg en is de potentie de huidige score.
 // Max(cur, proj) vangt afrondingsdips af: potentie kan nooit onder huidig liggen.
 function metaPaScore(p) {
   if (p._metaPa !== undefined) return p._metaPa;
@@ -1707,12 +1717,21 @@ function buildPitch() {
     };
   });
 }
+function selectAllPositions() {
+  document.querySelectorAll('#pitch-wrap .pos-node').forEach(n => {
+    activePos.add(n.dataset.pos);
+    n.classList.add('on');
+  });
+  applyFilters();
+}
 
 // ---------- data laden ----------
-// Streamende dump-parser: knipt meta/speler-/stafobjecten één voor één uit de bytestroom.
-// Nodig omdat een dump van een volledig geladen database (600k+ personen, honderden MB's)
-// niet in één JavaScript-string of JSON.parse past (V8-limiet ~512 MB per string).
-// Leunt op de vaste plugin-structuur: {"meta":{...},"players":[{...}...],"staff":[{...}...]}.
+// Streamende dump-parser. Een volledig geladen database past niet in één JavaScript-string
+// (V8-limiet ~512 MB), dus we scannen de ruwe UTF-8-bytes en geven JSON.parse bundels van
+// complete objecten. Eén parse per speler was op een dump van ~270 MB het grootste deel
+// van de wachttijd in de viewer; bundels van 128 KB halen dat terug zonder de hele
+// tekst in het geheugen te houden.
+// Vaste plugin-structuur: {"meta":{...},"players":[{...}...],"staff":[{...}...]}.
 // String-interning: JSON.parse maakt voor elke voorkomen een nieuw string-object, ook
 // als de inhoud identiek is. Club-, divisie- en datumwaarden komen in een grote dump
 // honderdduizenden keren voor; één canonieke instantie per waarde scheelt honderden MB
@@ -1734,33 +1753,55 @@ async function parseDumpStream(resp, total, onProgress) {
   const dec = new TextDecoder();
   const data = { meta: {}, players: [], staff: [] };
   const pool = new Map();
-  let buf = '', pos = 0;            // onverwerkte staart + scanpositie daarin
+  let acc = new Uint8Array(0), pos = 0;
   let depth = 0, inStr = false, esc = false;
   let key = '', keyStart = -1;      // top-level sleutel (op diepte 1)
   let curKey = null;                // actieve sectie: meta | players | staff
   let elemStart = -1, elemDepth = 0;
+  let batchStart = -1, batchEnd = -1;
   let got = 0;
+  const BATCH = 1 << 17;
+
+  const concat = (a, b) => {
+    if (!a.length) return b;
+    const n = new Uint8Array(a.length + b.length);
+    n.set(a, 0); n.set(b, a.length);
+    return n;
+  };
+  // "{...},{...}" is zelf geen array; de haken eromheen wel. Alleen aanroepen als de
+  // bundel op een objectgrens staat (batchEnd wijst op de sluitende accolade).
+  const flush = () => {
+    if (batchStart < 0) return;
+    const arr = JSON.parse('[' + dec.decode(acc.subarray(batchStart, batchEnd + 1)) + ']');
+    const dest = data[curKey];
+    for (let i = 0; i < arr.length; i++) { internStrings(arr[i], pool); dest.push(arr[i]); }
+    batchStart = -1; batchEnd = -1;
+  };
 
   for (;;) {
     const { done, value } = await reader.read();
     if (done) break;
+    const prev = got;
     got += value.length;
     onProgress(got);
-    buf += dec.decode(value, { stream: true });
-    for (; pos < buf.length; pos++) {
-      const c = buf.charCodeAt(pos);
+    acc = concat(acc, value);
+    for (; pos < acc.length; pos++) {
+      const c = acc[pos];
       if (inStr) {
         if (esc) esc = false;
         else if (c === 92) esc = true;                          // \
         else if (c === 34) {                                    // sluitende "
           inStr = false;
-          if (keyStart >= 0) { key = buf.slice(keyStart, pos); keyStart = -1; }
+          if (keyStart >= 0) { key = dec.decode(acc.subarray(keyStart, pos)); keyStart = -1; }
         }
       } else if (c === 34) {                                    // openende "
         inStr = true;
         if (depth === 1 && elemStart < 0) keyStart = pos + 1;
       } else if (c === 58) {                                    // :
-        if (depth === 1 && key) { curKey = key; key = ''; }
+        if (depth === 1 && key) {
+          if (batchStart >= 0) flush();
+          curKey = key; key = '';
+        }
       } else if (c === 123 || c === 91) {                       // { of [
         depth++;
         if (elemStart < 0 && c === 123 &&
@@ -1770,26 +1811,35 @@ async function parseDumpStream(resp, total, onProgress) {
         }
       } else if (c === 125 || c === 93) {                       // } of ]
         if (elemStart >= 0 && depth === elemDepth) {
-          const obj = JSON.parse(buf.slice(elemStart, pos + 1));
-          if (curKey === 'meta') data.meta = obj;
-          else { internStrings(obj, pool); data[curKey].push(obj); }
+          if (curKey === 'meta') data.meta = JSON.parse(dec.decode(acc.subarray(elemStart, pos + 1)));
+          else if (curKey === 'players' || curKey === 'staff') {
+            if (batchStart < 0) batchStart = elemStart;
+            batchEnd = pos;
+            if (batchEnd - batchStart >= BATCH) flush();
+          }
           elemStart = -1;
         }
+        if (c === 93 && depth === 2 && batchStart >= 0) flush();
         depth--;
       }
     }
-    // Verwerkte deel weggooien; loopt er nog een element of sleutel, dan vanaf daar bewaren.
-    const cut = Math.min(elemStart >= 0 ? elemStart : buf.length, keyStart >= 0 ? keyStart - 1 : buf.length, pos);
-    if (cut > 0) {
-      buf = buf.slice(cut);
-      pos -= cut;
-      if (elemStart >= 0) elemStart -= cut;
-      if (keyStart >= 0) keyStart -= cut;
+    // Verwerkte prefix weggooien. Een open bundel, object of sleutel blijft staan.
+    const keep = Math.min(
+      elemStart >= 0 ? elemStart : acc.length,
+      keyStart >= 0 ? keyStart - 1 : acc.length,
+      batchStart >= 0 ? batchStart : acc.length,
+      pos);
+    if (keep > 0) {
+      acc = acc.slice(keep);
+      pos -= keep;
+      if (elemStart >= 0) elemStart -= keep;
+      if (keyStart >= 0) keyStart -= keep;
+      if (batchStart >= 0) { batchStart -= keep; batchEnd -= keep; }
     }
-    // De parse-lus blokkeert de UI; regelmatig een frame vrijgeven voor de voortgangsbalk
-    // en de GC (elke 8 MB — bij mega-dumps bleef de UI anders tientallen seconden bevroren).
-    if (got % (1 << 23) < value.length) await new Promise(r => setTimeout(r, 0));
+    // De parse-lus blokkeert de UI; elke 8 MB een frame vrijgeven voor de voortgangsbalk.
+    if ((prev >>> 23) !== (got >>> 23)) await new Promise(r => setTimeout(r, 0));
   }
+  if (batchStart >= 0) flush();
   // Volledig = de buitenste accolade is netjes gesloten (diepte terug op 0) en er kwam
   // überhaupt data binnen. Een afgebroken stream of half geschreven bestand faalt hier.
   data._complete = depth === 0 && !inStr && got > 0;
@@ -1801,6 +1851,12 @@ async function parseDumpStream(resp, total, onProgress) {
 let lastStatus = null;
 let loadError = null;
 
+let dumpLoadAbort = null;
+function cancelDumpLoad() {
+  if (!dumpLoadAbort) return;
+  dumpLoadAbort.abort();
+  dumpLoadAbort = null;
+}
 async function loadDump(force = false) {
   let st = null;
   try {
@@ -1826,7 +1882,10 @@ async function loadDump(force = false) {
     const b = $('banner');
     b.className = 'scanning'; b.innerHTML = bannerMsg('hourglass', t('loading')); b.onclick = null;
     // Streamend binnenhalen én parsen, met echte voortgang (bytes / Content-Length).
-    const resp = await fetch('/api/dump');
+    cancelDumpLoad();
+    dumpLoadAbort = new AbortController();
+    const dumpSignal = dumpLoadAbort.signal;
+    const resp = await fetch('/api/dump', { signal: dumpSignal });
     if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
     const total = Number(resp.headers.get('Content-Length')) || 0;
     let data;
@@ -1905,6 +1964,7 @@ async function loadDump(force = false) {
     if (loads >= 3) coffeeGlow();
     return true;
   } catch (e) {
+    if (e && e.name === 'AbortError') return false;
     console.error(e);
     localStorage.removeItem('fmss27_loadmark');   // nette fout, geen crash: marker weg
     $('dump-info').textContent = 'fout';
@@ -1935,17 +1995,35 @@ async function postHistorySnapshot() {
     if (!gd || !state.players.length) return;
     if (localStorage.getItem('fmss27_hist_at') === String(state.dumpStamp)) return;
     const keySet = new Set();
-    for (const p of state.players) if (p.attrs) for (const k in p.attrs) keySet.add(k);
+    const list = state.players;
+    for (let i = 0; i < list.length; i++) {
+      const attrs = list[i].attrs;
+      if (attrs) for (const k in attrs) keySet.add(k);
+      if ((i & 8191) === 8191) await new Promise(r => setTimeout(r, 0));
+    }
     const attrKeys = [...keySet];
-    const compact = {};
-    for (const p of state.players) {
+    // In stukken opbouwen en tussendoor een frame vrijgeven. Eén JSON.stringify van de
+    // hele selectie (170k+ spelers met attributen) bevroor het scherm secondenlang
+    // nadat de tabel al zichtbaar was.
+    const chunks = ['{"manager":', JSON.stringify(state.meta.manager || 'default'),
+      ',"gameDate":', JSON.stringify(gd), ',"attrKeys":', JSON.stringify(attrKeys), ',"players":{'];
+    const enc = [];
+    for (let i = 0; i < list.length; i++) {
+      const p = list[i];
       const row = [p.ca ?? 0, p.pa ?? 0, p.value ?? null];
       if (p.attrs) row.push(attrKeys.map(k => typeof p.attrs[k] === 'number' ? p.attrs[k] : null));
-      compact[p.id] = row;
+      enc.push((i ? ',' : '') + JSON.stringify(String(p.id)) + ':' + JSON.stringify(row));
+      if ((i & 2047) === 2047) {
+        chunks.push(enc.join(''));
+        enc.length = 0;
+        await new Promise(r => setTimeout(r, 0));
+      }
     }
+    if (enc.length) chunks.push(enc.join(''));
+    chunks.push('}}');
     const r = await fetch('/api/history', {
       method: 'POST', headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ manager: state.meta.manager || 'default', gameDate: gd, attrKeys, players: compact }),
+      body: chunks.join(''),
     });
     if (r.ok) localStorage.setItem('fmss27_hist_at', String(state.dumpStamp));
   } catch { /* historie is nice-to-have, nooit het laden storen */ }
@@ -2031,7 +2109,7 @@ function renderVerWarn() {
   const el = $('ver-warn');
   const m = state.meta;
   if (m.gameVersion && m.versionOk === false) {
-    el.innerHTML = bannerMsg('warning', tf('verWarn', { v: m.gameVersion, s: m.supportedVersion || '27.0.1+2494687' }));
+    el.innerHTML = bannerMsg('warning', tf('verWarn', { v: m.gameVersion, s: m.supportedVersion || '27.0.1+2503222' }));
     el.classList.remove('hidden');
   } else if (m.generated && !m.readerVersion && !m.pluginVersion) {
     el.innerHTML = bannerMsg('warning', t('verWarnOldDump'));
@@ -3379,7 +3457,7 @@ function drawPlayerCard(p) {
   const P = { bg2: '#1c242f', bd: '#2a3441', tx: '#dbe4ee', mu: '#8294a8', gr: '#46c46e', am: '#e8a13c', gd: '#f5c518' };
   const T = CARD_TIER[d.tier], wk = d.wk;
   const A = cardAlpha, fmc = cardFmc;
-  const F = (w, s) => `${w} ${s}px "Segoe UI", system-ui, sans-serif`;
+  const F = (w, s) => `${w} ${+s + 1}px "DM Sans", system-ui, sans-serif`;
   const ls = v => { try { x.letterSpacing = v; } catch (e) { } };
   const rr = (a, b, w, h, r) => { x.beginPath(); x.roundRect(a, b, w, h, r); };
   const hexPath = (cx, cy, r) => { x.beginPath(); for (let i = 0; i < 6; i++) { const a = -Math.PI / 2 + i * Math.PI / 3, px = cx + Math.cos(a) * r, py = cy + Math.sin(a) * r; i ? x.lineTo(px, py) : x.moveTo(px, py); } x.closePath(); };
@@ -4176,9 +4254,9 @@ function renderBestXI() {
   let html = `<div class="an-head" style="display:flex; justify-content:space-between; align-items:center; padding: 15px 20px; flex-wrap: wrap; gap: 10px;">
     <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
         <h2 style="margin:0;">${escHtml(t('bestXiTitle'))}</h2>
-        <button onclick="openMercatoModal()" style="padding: 5px 12px; background: #059669; color: #fff; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 12px;">📊 ${escHtml(t('mercatoBtn'))}</button>
-        <button onclick="triggerBestFormationAuto()" style="padding: 5px 12px; background: #d97706; color: #fff; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 12px;">⚡ ${escHtml(t('findBestXI'))}</button>
-        <button onclick="state.bestXiFormation = 'custom'; renderBestXI();" style="padding: 5px 12px; background: #7c3aed; color: #fff; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 12px;">✏️ ${escHtml(t('editTactics'))}</button>
+        <button onclick="openMercatoModal()" style="padding: 5px 12px; background: #059669; color: #fff; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 13px;">📊 ${escHtml(t('mercatoBtn'))}</button>
+        <button onclick="triggerBestFormationAuto()" style="padding: 5px 12px; background: #d97706; color: #fff; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 13px;">⚡ ${escHtml(t('findBestXI'))}</button>
+        <button onclick="state.bestXiFormation = 'custom'; renderBestXI();" style="padding: 5px 12px; background: #7c3aed; color: #fff; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 13px;">✏️ ${escHtml(t('editTactics'))}</button>
     </div>
     <select id="xi-formation" onchange="handleFormationChange()" style="padding: 5px 10px; background: #1e293b; color: #fff; border: 1px solid #334155; border-radius: 5px; font-weight: bold; cursor: pointer;">
         ${Object.keys(XI_FORMATIONS).filter(f => f !== 'custom_active').map(f => `<option value="${f}" ${state.bestXiFormation === f ? 'selected' : ''}>${f}</option>`).join('')}
@@ -4216,16 +4294,16 @@ function renderBestXI() {
       let name = slot.player ? slot.player.name : t('noPlayer');
       let cls = slot.score > 0 ? roleClass(slot.score) : '';
       pitchHtml += `<div style="position:absolute; top:${slot.t}%; left:${slot.l}%; transform:translate(-50%, -50%); text-align:center; color:white; z-index:10; cursor:pointer;" ${slot.player ? `onclick="showDetail(state.players.find(p=>p.id===${slot.player.id}))"` : ''}>
-         <div class="v ${cls}" style="width:38px; height:38px; line-height:38px; border-radius:50%; margin:0 auto; font-weight:bold; background:#1e293b; border:2px solid rgba(255,255,255,0.2); font-size:13px;">${score}</div>
-         <div style="font-size:11px; font-weight:bold; background:rgba(15,23,42,0.95); padding:3px 6px; border-radius:4px; margin-top:4px; max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${name}</div>
-         <div style="font-size:9px; color:#cbd5e1; margin-top:1px; font-weight:bold;">${roleName(slot.role)}</div>
+         <div class="v ${cls}" style="width:38px; height:38px; line-height:38px; border-radius:50%; margin:0 auto; font-weight:bold; background:#1e293b; border:2px solid rgba(255,255,255,0.2); font-size: 14px;">${score}</div>
+         <div style="font-size: 12px; font-weight:bold; background:rgba(15,23,42,0.95); padding:3px 6px; border-radius:4px; margin-top:4px; max-width:100px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${name}</div>
+         <div style="font-size: 10px; color:#cbd5e1; margin-top:1px; font-weight:bold;">${roleName(slot.role)}</div>
       </div>`;
     });
   }
   pitchHtml += `</div>`;
 
   let benchHtml = `<div style="width: 100%; max-width: 320px; background: #1e293b; border: 1px solid #334155; border-radius: 12px; display: flex; flex-direction: column; height: 720px; overflow: hidden; flex-shrink: 0;">
-    <div style="padding: 12px 15px; background: #0f172a; border-bottom: 1px solid #334155; font-weight: bold; color: #fbbf24; font-size: 13px;">
+    <div style="padding: 12px 15px; background: #0f172a; border-bottom: 1px solid #334155; font-weight: bold; color: #fbbf24; font-size: 14px;">
         <span>🪑 ${escHtml(t('xiBench'))}</span>
     </div>
     <div style="padding: 12px; overflow-y: auto; flex-grow: 1; display: flex; flex-direction: column; gap: 8px;">`;
@@ -4244,17 +4322,17 @@ function renderBestXI() {
 
       benchHtml += `<div style="background: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 8px 12px; display: flex; justify-content: space-between; align-items: center; ${!slot.player ? 'opacity: 0.5;' : ''}">
           <div>
-              <div style="font-size: 10px; color: #94a3b8; text-transform: uppercase; font-weight: bold;">${formatRoleLabel}</div>
-              <div style="font-size: 12px; font-weight: bold; color: #fff; margin-top: 1px; cursor: pointer; max-width: 170px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" ${slot.player ? `onclick="showDetail(state.players.find(p=>p.id===${slot.player.id}))"` : ''}>${playerName}</div>
+              <div style="font-size: 11px; color: #94a3b8; text-transform: uppercase; font-weight: bold;">${formatRoleLabel}</div>
+              <div style="font-size: 13px; font-weight: bold; color: #fff; margin-top: 1px; cursor: pointer; max-width: 170px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" ${slot.player ? `onclick="showDetail(state.players.find(p=>p.id===${slot.player.id}))"` : ''}>${playerName}</div>
           </div>
-          <div class="v ${cls}" style="width: 28px; height: 28px; line-height: 28px; text-align: center; border-radius: 50%; font-weight: bold; font-size: 11px; background: #1e293b; border: 1px solid rgba(255,255,255,0.2);">${scoreVal}</div>
+          <div class="v ${cls}" style="width: 28px; height: 28px; line-height: 28px; text-align: center; border-radius: 50%; font-weight: bold; font-size: 12px; background: #1e293b; border: 1px solid rgba(255,255,255,0.2);">${scoreVal}</div>
       </div>`;
     });
   }
   benchHtml += `</div></div>`;
   layoutHtml += pitchHtml + benchHtml + `</div>`;
 
-  let scoreFooter = result && result.score ? `<div style="text-align:center; color:#94a3b8; font-size:15px; margin-top:10px; font-weight:bold;">${escHtml(t('avgMetaXI'))} <strong style="color:#34d399; font-size:17px;">${(result.score / 11).toFixed(2)}</strong></div>` : '';
+  let scoreFooter = result && result.score ? `<div style="text-align:center; color:#94a3b8; font-size: 16px; margin-top:10px; font-weight:bold;">${escHtml(t('avgMetaXI'))} <strong style="color:#34d399; font-size: 18px;">${(result.score / 11).toFixed(2)}</strong></div>` : '';
   box.innerHTML = html + layoutHtml + scoreFooter;
 }
 
@@ -4315,7 +4393,7 @@ function renderInteractiveMap() {
               ${Object.keys(XI_FORMATIONS).map(f => `<option value="${f}">${f}</option>`).join('')}
               <option value="custom" selected>⚙️ ${escHtml(t('customTactics'))}</option>
           </select>
-          <button onclick="confirmCustomTactics()" ${!isReady ? 'disabled' : ''} style="padding: 6px 14px; background: ${isReady ? '#8b5cf6' : '#334155'}; color: #fff; border: none; border-radius: 6px; font-weight: bold; cursor: ${isReady ? 'pointer' : 'not-allowed'}; font-size: 12px;">${escHtml(t('confirmTactics'))}</button>
+          <button onclick="confirmCustomTactics()" ${!isReady ? 'disabled' : ''} style="padding: 6px 14px; background: ${isReady ? '#8b5cf6' : '#334155'}; color: #fff; border: none; border-radius: 6px; font-weight: bold; cursor: ${isReady ? 'pointer' : 'not-allowed'}; font-size: 13px;">${escHtml(t('confirmTactics'))}</button>
       </div>
   </div>`;
 
@@ -4325,7 +4403,7 @@ function renderInteractiveMap() {
       const leftPct = sideWidths[slot.side] || 50;
       const isActivated = customSelectedSlots.some(s => s.line === slot.line && s.side === slot.side && s.role === slot.role);
       const btnStyle = isActivated ? "background: #8b5cf6; color: #fff; border: 2px solid #c4b5fd;" : "background: rgba(15,23,42,0.6); color: #94a3b8; border: 2px dashed #475569;";
-      pitchHtml += `<button onclick="toggleCustomSlot('${slot.line}', '${slot.side}', '${slot.role}')" style="position:absolute; top:${topPct}%; left:${leftPct}%; transform:translate(-50%, -50%); width:52px; height:42px; border-radius:8px; font-weight:bold; font-size:9px; cursor:pointer; z-index:20; ${btnStyle}">${slot.label}</button>`;
+      pitchHtml += `<button onclick="toggleCustomSlot('${slot.line}', '${slot.side}', '${slot.role}')" style="position:absolute; top:${topPct}%; left:${leftPct}%; transform:translate(-50%, -50%); width:52px; height:42px; border-radius:8px; font-weight:bold; font-size: 10px; cursor:pointer; z-index:20; ${btnStyle}">${slot.label}</button>`;
   });
   pitchHtml += `</div>`;
   box.innerHTML = html + pitchHtml;
@@ -4417,7 +4495,7 @@ function openMercatoModal() {
       <div style="background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 14px; margin-bottom: 12px;">
         <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #334155; padding-bottom: 8px; margin-bottom: 10px;">
           <span style="color: #34d399; font-weight: bold;">${escHtml(t('mercatoPos'))} ${escHtml(group.role)}</span>
-          <span style="font-size: 12px; color: #94a3b8;">${escHtml(t('mercatoStarter'))} <b style="color: #fff;">${escHtml(group.currentName)}</b> (${group.currentScore.toFixed(1)})</span>
+          <span style="font-size: 13px; color: #94a3b8;">${escHtml(t('mercatoStarter'))} <b style="color: #fff;">${escHtml(group.currentName)}</b> (${group.currentScore.toFixed(1)})</span>
         </div>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px;">
           ${group.targets.map(tgt => {
@@ -4427,12 +4505,12 @@ function openMercatoModal() {
             return `<div style="position: relative; background: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 12px;">
               <button onclick="dismissMercatoTarget(${p.id})" style="position: absolute; top: 8px; right: 8px; background: none; border: none; color: #94a3b8; cursor: pointer;">✕</button>
               <div style="font-weight: bold; color: #fff; cursor: pointer;" onclick="showDetail(state.players.find(x=>x.id===${p.id}))">${escHtml(p.name)}</div>
-              <div style="font-size: 12px; color: #94a3b8;">${escHtml(p.club || t('clubless'))} • ${getAge(p) || '?'} ${escHtml(t('yrs'))}</div>
-              <div style="font-size: 11px; color: #cbd5e1; margin-top: 6px;">
+              <div style="font-size: 13px; color: #94a3b8;">${escHtml(p.club || t('clubless'))} • ${getAge(p) || '?'} ${escHtml(t('yrs'))}</div>
+              <div style="font-size: 12px; color: #cbd5e1; margin-top: 6px;">
                 <div>${escHtml(t('priceLabel'))} <b style="color: #fff;">${fmtMoney(feeVal)}</b> | Q/P: <b style="color: #34d399;">${qpVal}</b></div>
                 <div>${escHtml(t('c_interest'))}: <b style="color: #38bdf8;">${iObj ? iObj.score : '?'}/100</b></div>
               </div>
-              <div style="margin-top: 10px; display: flex; justify-content: space-between; font-size: 12px;">
+              <div style="margin-top: 10px; display: flex; justify-content: space-between; font-size: 13px;">
                 <span>${escHtml(t('c_meta'))}: <b>${tgt.dbScore.toFixed(1)}</b></span>
                 <span style="color: #34d399; font-weight: bold;">+${tgt.improvement.toFixed(1)} pts</span>
               </div>
@@ -4524,16 +4602,16 @@ function renderClubsView() {
     html += `<div style="margin-bottom: 30px;">
       <div style="background: #0f172a; border: 1px solid #334155; padding: 12px 16px; display: flex; justify-content: space-between;">
         <span style="font-weight: bold; color: #38bdf8;">🏆 ${escHtml(div.name === '__unknown_div__' ? t('divUnknown') : div.name)}</span>
-        <div style="display: flex; gap: 20px; font-size: 12px; color: #94a3b8;">
+        <div style="display: flex; gap: 20px; font-size: 13px; color: #94a3b8;">
           <span>${escHtml(t('clubsCount'))} <b style="color:#fff;">${divClubs.length}</b></span>
           <span>${escHtml(t('avgMetaShort'))}: <b style="color: #34d399;">${div.avgMeta.toFixed(1)}</b></span>
           <span>${escHtml(t('avgPaMetaShort'))}: <b style="color: #38bdf8;">${div.avgPaMeta.toFixed(1)}</b></span>
         </div>
       </div>
       <div style="background: #1e293b; border: 1px solid #334155; overflow-x: auto;">
-        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 13px;">
+        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 14px;">
           <thead>
-            <tr style="color: #64748b; border-bottom: 1px solid #334155; font-size: 11px; text-transform: uppercase;">
+            <tr style="color: #64748b; border-bottom: 1px solid #334155; font-size: 12px; text-transform: uppercase;">
               <th style="padding: 8px 14px;">${escHtml(t('c_club'))}</th>
               <th style="padding: 8px 14px; text-align: center;">${escHtml(t('proSquad'))}</th>
               <th style="padding: 8px 14px; text-align: center;">${escHtml(t('avgAgeCol'))}</th>
@@ -4932,6 +5010,7 @@ $('btn-fetch').onclick = async () => {
     const st = await (await fetch('/api/fmstatus')).json();
     if (st.error || st.readerInstalled === false) { b.className='scanning error'; b.innerHTML=bannerMsg('warning', escHtml(st.error || 'Reader missing. Run tools/setup-local.ps1.')); b.onclick=null; return; }
     if (!st.running) { b.className = 'scanning error'; b.innerHTML = bannerMsg('warning', t('fmNotRunning')); b.onclick = null; return; }
+    cancelDumpLoad();
     const response = await fetch('/api/refresh', { method: 'POST' });
     const result = await response.json();
     if (!response.ok) { b.className='scanning error'; b.innerHTML=bannerMsg('warning', escHtml(result.error || 'Read failed')); return; }
@@ -5165,6 +5244,7 @@ async function initHeartbeat() {
 initHeartbeat();
 
 buildPitch();
+$('btn-pos-all').onclick = selectAllPositions;
 applyLang();
 document.body.classList.toggle('hide-capa', state.hideCapa);
 document.body.classList.toggle('hide-meta', state.hideMeta);

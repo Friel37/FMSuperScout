@@ -1,4 +1,14 @@
-﻿# FM27 validation — full release, 2026-11-10
+﻿# FM27 validation — 27.0.1+2503222, 2026-11-12
+
+Target: Windows Steam 4530370 / build 26577676; native product 27.0.1+2503222.
+The version gate is the only reader change. Array and vtable RVAs stay on the
+full-release layout below. Live check: 215,676 player pointers (ordinary vtable
+0x4E2B4E8 offset 0x288, player-coach 0x508FCB8 offset 0x380) and 81,211 staff
+pointers (ordinary 0x4E90848 offset 0x100, player-coach 0x508FCA0, human manager
+0x4DC48CC offset 0x440). Toni Micevski still reads CA 40 / PA 122, and the high-CA
+sample includes Haaland 195/195, Saka 188/188 and Vinícius Júnior 180/190.
+
+# FM27 validation — full release, 2026-11-10
 
 Target: Windows Steam 4530370 / build 26385295; native product 27.0.1+2494687.
 Person offsets are unchanged (player 0x288, player-coach 0x380, staff 0x100,
