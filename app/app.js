@@ -13,6 +13,7 @@ const state = {
   lang: ['nl', 'en', 'fr', 'de'].includes(localStorage.getItem('fmss27_lang')) ? localStorage.getItem('fmss27_lang') : 'nl',
   showPot: false,
   myTeam: 'all',   // teamchip bij "Mijn club": all | first | res | youth
+  clubFilter: '',  // klik-filter op een clubnaam in de tabel (chip wist hem weer)
   hideCapa: localStorage.getItem('fmss27_hidecapa') === '1',
   hideMeta: localStorage.getItem('fmss27_hidemeta') === '1',   // meta-score los van de overige verborgen stats
   role: localStorage.getItem('fmss27_role') || '',
@@ -63,7 +64,7 @@ const I18N = {
     alreadyDonated: 'Al gedoneerd?', neverAsk: 'Vraag het niet meer',
     supporterThanks: 'Dank je wel! Je hoort er niets meer over.',
     donateCta: '☕ Trakteer', donateLater: 'Later',
-    position: 'Positie', selectAllPos: 'Alle posities', clear: 'wis', staffrole: 'Staf-rol', quality: 'Kwaliteit & leeftijd',
+    position: 'Positie', selectAllPos: 'Alle posities', clearPos: 'Geen positie', clear: 'wis', staffrole: 'Staf-rol', quality: 'Kwaliteit & leeftijd',
     age: 'Leeftijd', financial: 'Financieel', maxvalue: 'Max. waarde', maxfee: 'Max. vraagprijs', maxwage: 'Max. loon',
     esSetupTitle: 'Start Football Manager 27 eerst een keer',
     esSetupBody: 'De eerste start na de installatie duurt 1 tot 3 minuten langer en toont een zwart consolevenster. Dat hoort zo: de mod-laag bouwt eenmalig zijn bestanden. Laat het venster open staan, ook als FM lijkt te hangen.',
@@ -141,6 +142,7 @@ const I18N = {
     step2: 'Klik hier op <b>Nieuwe data</b> om FM27 uit te lezen.',
     step3: 'De data laadt vanzelf zodra de dump klaar is',
     playersWord: 'spelers', staffWord: 'staf', clickClubFilter: 'Klik = filter op jouw club', repWord: 'reputatie',
+    filterByClub: 'Klik = filter op deze club', filterByNat: 'Klik = filter op deze nationaliteit', filterByPos: 'Klik = filter op deze positie',
     roleFit: 'Tactische rol', roleColHdr: 'Rol', roleAny: 'Geen rol gekozen', bestRoles: 'Beste rollen',
     compare: 'Vergelijk', comparing: 'Vergelijken', addCompare: 'Vergelijk', compareFull: 'Max. 3 spelers',
     cmpTitle: 'Spelervergelijking', cmpValue: 'Waarde', cmpTopRole: 'Beste rol',
@@ -174,8 +176,8 @@ const I18N = {
     wagePer: 'Salaris per', perWeek: 'week', perMonth: 'maand', perYear: 'jaar',
     perWeekSuf: 'p/w', perMonthSuf: 'p/mnd', perYearSuf: 'p/jr', jobStaff: 'Staflid',
     c_meta: 'Meta', metaLabel: 'Meta-score', c_metapa: 'PA-meta',
-    metaHint: 'Gewogen gemiddelde (1-20) van de veldspeler-aandelen. Snelheid, sprongkracht, versnelling en uithoudingsvermogen tellen het zwaarst. Keepers: eigen weging uit de keeperstest (Reflexen, Behendigheid).\n\n15+ elite, 13-15 sterk, 11-13 degelijk.',
-    metaPaHint: 'Dezelfde meta-weging, toegepast op de attributen die hij op zijn potentieel (PA) naar verwachting haalt. Projectie volgt het groeiprofiel van zijn positiegroep; fysieke groei stopt na 23.\n\nUitontwikkeld = gelijk aan Meta. Sorteer hierop voor de meta-toppers van morgen.',
+    metaHint: 'Gewogen gemiddelde (1-20) op de FM27-weging van zijn positie: spits, vleugel/AM, wingback/back, centrale verdediger of middenveld. Bij meerdere posities telt de zwaardere positie harder mee (spits het meest, middenveld het minst). Keepers: FM27-weging (Behendigheid, Reflexen).\n\n15+ elite, 13-15 sterk, 11-13 degelijk.',
+    metaPaHint: 'Dezelfde positionele meta-weging, toegepast op de attributen die hij op zijn potentieel (PA) naar verwachting haalt. Projectie volgt het groeiprofiel van zijn positiegroep; fysieke groei stopt na 23.\n\nUitontwikkeld = gelijk aan Meta. Sorteer hierop voor de meta-toppers van morgen.',
     verWarn: 'FM-versie {v} gedetecteerd; de uitlezing is geijkt op {s}.x. Data mogelijk onbetrouwbaar tot een update van FMSuperScout.',
     verWarnOldDump: 'Deze data komt van een oudere FMSuperScout-plugin. Alles werkt, maar haal verse data op (Nieuwe data in FM27 met je save geladen) voor het beste resultaat.',
     bestXi: 'Beste XI', bestXiTitle: 'Beste XI & bank', xiBench: 'Mijn bank',
@@ -216,7 +218,7 @@ const I18N = {
     alreadyDonated: 'Already donated?', neverAsk: 'Don\'t ask again',
     supporterThanks: 'Thank you! You won\'t hear about this again.',
     donateCta: '☕ Buy me a coffee', donateLater: 'Maybe later',
-    position: 'Position', selectAllPos: 'All positions', clear: 'clear', staffrole: 'Staff role', quality: 'Quality & age',
+    position: 'Position', selectAllPos: 'All positions', clearPos: 'No positions', clear: 'clear', staffrole: 'Staff role', quality: 'Quality & age',
     age: 'Age', financial: 'Financial', maxvalue: 'Max. value', maxfee: 'Max. asking price', maxwage: 'Max. wage',
     esSetupTitle: 'Start Football Manager 27 once first',
     esSetupBody: 'The first launch after installing takes 1 to 3 minutes longer and shows a black console window. That is normal: the mod layer builds its files once. Leave the window open, even if FM looks stuck.',
@@ -294,6 +296,7 @@ const I18N = {
     step2: 'Click <b>New data</b> here to read FM27.',
     step3: 'The data loads automatically once the dump is ready',
     playersWord: 'players', staffWord: 'staff', clickClubFilter: 'Click = filter on your club', repWord: 'reputation',
+    filterByClub: 'Click = filter on this club', filterByNat: 'Click = filter on this nationality', filterByPos: 'Click = filter on this position',
     roleFit: 'Tactical role', roleColHdr: 'Role', roleAny: 'No role selected', bestRoles: 'Best roles',
     compare: 'Compare', comparing: 'Comparing', addCompare: 'Compare', compareFull: 'Max. 3 players',
     cmpTitle: 'Player comparison', cmpValue: 'Value', cmpTopRole: 'Best role',
@@ -327,8 +330,8 @@ const I18N = {
     wagePer: 'Wage per', perWeek: 'week', perMonth: 'month', perYear: 'year',
     perWeekSuf: '/wk', perMonthSuf: '/mo', perYearSuf: '/yr', jobStaff: 'Staff member',
     c_meta: 'Meta', metaLabel: 'Meta score', c_metapa: 'PA meta',
-    metaHint: 'Weighted average (1-20) of the outfield attribute shares. Pace, Jumping Reach, Acceleration and Stamina count most. Goalkeepers: own weighting from the keeper test (Reflexes, Agility).\n\n15+ elite, 13-15 strong, 11-13 decent.',
-    metaPaHint: 'The same meta weighting, applied to the attributes he is expected to reach at his potential (PA). The projection follows his position group\'s growth profile; physical growth stops after 23.\n\nFully developed = same as Meta. Sort on this for tomorrow\'s meta stars.',
+    metaHint: 'Weighted average (1-20) on the FM27 weighting for his position: striker, winger/attacking mid, wing-back/full-back, centre-back or central midfield. With several positions, the higher-impact role counts more (striker most, midfield least). Goalkeepers: FM27 weighting (Agility, Reflexes).\n\n15+ elite, 13-15 strong, 11-13 decent.',
+    metaPaHint: 'The same positional meta weighting, applied to the attributes he is expected to reach at his potential (PA). The projection follows his position group\'s growth profile; physical growth stops after 23.\n\nFully developed = same as Meta. Sort on this for tomorrow\'s meta stars.',
     verWarn: 'FM version {v} detected; memory reading is calibrated for {s}.x. Data may be unreliable until FMSuperScout is updated.',
     verWarnOldDump: 'This data was made by an older FMSuperScout plugin. Everything works, but fetch fresh data (New data in FM27 with your save loaded) for the best results.',
     bestXi: 'Best XI', bestXiTitle: 'Best XI & bench', xiBench: 'My bench',
@@ -369,7 +372,7 @@ const I18N = {
     alreadyDonated: 'Déjà donné ?', neverAsk: 'Ne plus demander',
     supporterThanks: 'Merci ! Vous n\'en entendrez plus parler.',
     donateCta: '☕ Offrir un café', donateLater: 'Plus tard',
-    position: 'Poste', selectAllPos: 'Tous les postes', clear: 'effacer', staffrole: 'Rôle du staff', quality: 'Qualité et âge',
+    position: 'Poste', selectAllPos: 'Tous les postes', clearPos: 'Aucun poste', clear: 'effacer', staffrole: 'Rôle du staff', quality: 'Qualité et âge',
     age: 'Âge', financial: 'Finances', maxvalue: 'Valeur max.', maxfee: 'Prix demandé max.', maxwage: 'Salaire max.',
     esSetupTitle: 'Lancez d\'abord Football Manager 27 une fois',
     esSetupBody: 'Le premier lancement après l\'installation prend 1 à 3 minutes de plus et affiche une console noire. C\'est normal : la couche de mods génère ses fichiers une seule fois. Laissez la fenêtre ouverte, même si FM semble figé.',
@@ -447,6 +450,7 @@ const I18N = {
     step2: 'Cliquez ici sur <b>Nouvelles données</b> pour lire FM27.',
     step3: 'Les données se chargent dès que le dump est prêt',
     playersWord: 'joueurs', staffWord: 'staff', clickClubFilter: 'Clic = filtrer sur votre club', repWord: 'réputation',
+    filterByClub: 'Clic = filtrer sur ce club', filterByNat: 'Clic = filtrer sur cette nationalité', filterByPos: 'Clic = filtrer sur ce poste',
     roleFit: 'Rôle tactique', roleColHdr: 'Rôle', roleAny: 'Aucun rôle choisi', bestRoles: 'Meilleurs rôles',
     compare: 'Comparer', comparing: 'Comparaison', addCompare: 'Comparer', compareFull: '3 joueurs max.',
     cmpTitle: 'Comparaison de joueurs', cmpValue: 'Valeur', cmpTopRole: 'Meilleur rôle',
@@ -480,8 +484,8 @@ const I18N = {
     wagePer: 'Salaire par', perWeek: 'semaine', perMonth: 'mois', perYear: 'an',
     perWeekSuf: '/sem', perMonthSuf: '/mois', perYearSuf: '/an', jobStaff: 'Membre du staff',
     c_meta: 'Méta', metaLabel: 'Score méta', c_metapa: 'Méta PA',
-    metaHint: 'Moyenne pondérée (1-20) des parts d\'attributs des joueurs de champ. Vitesse, détente, accélération et endurance pèsent le plus. Gardiens : pondération propre issue du test des gardiens (Réflexes, Agilité).\n\n15+ élite, 13-15 fort, 11-13 correct.',
-    metaPaHint: 'La même pondération méta, appliquée aux attributs qu\'il devrait atteindre à son potentiel (PA). La projection suit le profil de progression de son groupe de postes ; le physique cesse de progresser après 23 ans.\n\nJoueur abouti = identique au Méta. Triez dessus pour trouver les stars méta de demain.',
+    metaHint: 'Moyenne pondérée (1-20) selon la pondération FM27 de son poste : attaquant, ailier/milieu offensif, piston/latéral, défenseur central ou milieu central. Avec plusieurs postes, le rôle au plus fort impact pèse davantage (attaquant le plus, milieu le moins). Gardiens : pondération FM27 (Agilité, Réflexes).\n\n15+ élite, 13-15 fort, 11-13 correct.',
+    metaPaHint: 'La même pondération méta par poste, appliquée aux attributs qu\'il devrait atteindre à son potentiel (PA). La projection suit le profil de progression de son groupe de postes ; le physique cesse de progresser après 23 ans.\n\nJoueur abouti = identique au Méta. Triez dessus pour trouver les stars méta de demain.',
     verWarn: 'Version FM {v} détectée ; la lecture est calibrée pour {s}.x. Données possiblement peu fiables avant une mise à jour de FMSuperScout.',
     verWarnOldDump: 'Ces données viennent d\'un plugin FMSuperScout plus ancien. Tout fonctionne, mais rechargez des données fraîches (Nouvelles données dans FM27, sauvegarde chargée) pour un meilleur résultat.',
     bestXi: 'Meilleur XI', bestXiTitle: 'Meilleur XI & banc', xiBench: 'Mon banc',
@@ -522,7 +526,7 @@ const I18N = {
     alreadyDonated: 'Schon gespendet?', neverAsk: 'Nicht mehr fragen',
     supporterThanks: 'Danke! Du hörst nichts mehr davon.',
     donateCta: '☕ Kaffee spendieren', donateLater: 'Später',
-    position: 'Position', selectAllPos: 'Alle Positionen', clear: 'leeren', staffrole: 'Mitarbeiterrolle', quality: 'Qualität & Alter',
+    position: 'Position', selectAllPos: 'Alle Positionen', clearPos: 'Keine Position', clear: 'leeren', staffrole: 'Mitarbeiterrolle', quality: 'Qualität & Alter',
     age: 'Alter', financial: 'Finanzen', maxvalue: 'Max. Wert', maxfee: 'Max. Forderung', maxwage: 'Max. Gehalt',
     esSetupTitle: 'Starte Football Manager 27 zuerst einmal',
     esSetupBody: 'Der erste Start nach der Installation dauert 1 bis 3 Minuten länger und zeigt ein schwarzes Konsolenfenster. Das ist normal: Die Mod-Ebene erzeugt einmalig ihre Dateien. Fenster offen lassen, auch wenn FM zu hängen scheint.',
@@ -600,6 +604,7 @@ const I18N = {
     step2: 'Klicke hier auf <b>Neue Daten</b>, um FM27 auszulesen.',
     step3: 'Die Daten laden automatisch, sobald der Dump fertig ist',
     playersWord: 'Spieler', staffWord: 'Mitarbeiter', clickClubFilter: 'Klick = nach deinem Verein filtern', repWord: 'Reputation',
+    filterByClub: 'Klick = nach diesem Verein filtern', filterByNat: 'Klick = nach dieser Nationalität filtern', filterByPos: 'Klick = nach dieser Position filtern',
     roleFit: 'Taktische Rolle', roleColHdr: 'Rolle', roleAny: 'Keine Rolle gewählt', bestRoles: 'Beste Rollen',
     compare: 'Vergleichen', comparing: 'Vergleich', addCompare: 'Vergleichen', compareFull: 'Max. 3 Spieler',
     cmpTitle: 'Spielervergleich', cmpValue: 'Wert', cmpTopRole: 'Beste Rolle',
@@ -633,8 +638,8 @@ const I18N = {
     wagePer: 'Gehalt pro', perWeek: 'Woche', perMonth: 'Monat', perYear: 'Jahr',
     perWeekSuf: '/Wo', perMonthSuf: '/Mon.', perYearSuf: '/Jahr', jobStaff: 'Mitarbeiter',
     c_meta: 'Meta', metaLabel: 'Meta-Score', c_metapa: 'PA-Meta',
-    metaHint: 'Gewichteter Durchschnitt (1-20) der Feldspieler-Anteile. Schnelligkeit, Sprungkraft, Antritt und Ausdauer zählen am meisten. Torhüter: eigene Gewichtung aus dem Torwart-Test (Reflexe, Beweglichkeit).\n\n15+ Elite, 13-15 stark, 11-13 solide.',
-    metaPaHint: 'Dieselbe Meta-Gewichtung, angewandt auf die Attribute, die er an seinem Potenzial (PA) voraussichtlich erreicht. Die Projektion folgt dem Wachstumsprofil seiner Positionsgruppe; Physis wächst nach 23 nicht mehr.\n\nAusentwickelt = gleich Meta. Sortiere danach für die Meta-Stars von morgen.',
+    metaHint: 'Gewichteter Durchschnitt (1-20) nach der FM27-Gewichtung seiner Position: Stürmer, Flügel/offensives Mittelfeld, Flügel-/Außenverteidiger, Innenverteidiger oder zentrales Mittelfeld. Bei mehreren Positionen zählt die einflussreichere Rolle stärker (Stürmer am meisten, Mittelfeld am wenigsten). Torhüter: FM27-Gewichtung (Beweglichkeit, Reflexe).\n\n15+ Elite, 13-15 stark, 11-13 solide.',
+    metaPaHint: 'Dieselbe positionelle Meta-Gewichtung, angewandt auf die Attribute, die er an seinem Potenzial (PA) voraussichtlich erreicht. Die Projektion folgt dem Wachstumsprofil seiner Positionsgruppe; Physis wächst nach 23 nicht mehr.\n\nAusentwickelt = gleich Meta. Sortiere danach für die Meta-Stars von morgen.',
     verWarn: 'FM-Version {v} erkannt; das Auslesen ist auf {s}.x geeicht. Daten bis zu einem FMSuperScout-Update möglicherweise unzuverlässig.',
     verWarnOldDump: 'Diese Daten stammen von einem älteren FMSuperScout-Plugin. Alles funktioniert, aber hole frische Daten (Neue Daten in FM27 mit geladenem Spielstand) für das beste Ergebnis.',
     bestXi: 'Beste XI', bestXiTitle: 'Beste XI & Bank', xiBench: 'Meine Bank',
@@ -1123,10 +1128,10 @@ const PLAYER_COLS = [
   { key: 'sl', label: '★', star: true, w: 34 },
   { key: 'name', label: 'c_name', get: p => p.name, name: true, w: 180 },
   { key: 'age', label: 'c_age', num: true, get: p => getAge(p), w: 50 },
-  { key: 'pos', label: 'c_pos', get: p => posRank(p), render: p => p.pos ? escHtml(p.pos) : '<span class="dim">–</span>', w: 95 },
-  { key: 'club', label: 'c_club', get: p => p.club || '', render: p => clubLabel(p), w: 175 },
+  { key: 'pos', label: 'c_pos', get: p => posRank(p), render: p => posCell(p), w: 95 },
+  { key: 'club', label: 'c_club', get: p => p.club || '', render: p => clubCell(p), w: 175 },
   { key: 'div', label: 'c_div', get: p => p.div || '', render: p => p.div ? escHtml(p.div) : '<span class="dim">–</span>', defHidden: true, w: 170 },
-  { key: 'nat', label: 'c_nat', get: p => natsLabel(p), w: 115 },
+  { key: 'nat', label: 'c_nat', get: p => natsLabel(p), render: p => natCell(p), w: 115 },
   { key: 'eu', label: 'EU', get: p => isEu(p) ? 1 : 0, render: p => isEu(p) ? `<span class="eu-yes">${icon('check', 12)}</span>` : '<span class="dim">–</span>', w: 42 },
   { key: 'ca', label: 'CA', num: true, get: p => p.ca, render: p => qHtml(p.ca), w: 56 },
   { key: 'pa', label: 'PA', num: true, get: p => p.pa, render: p => qHtml(p.pa), w: 56 },
@@ -1152,8 +1157,8 @@ const STAFF_COLS = [
   { key: 'name', label: 'c_name', get: p => p.name, name: true, w: 180 },
   { key: 'age', label: 'c_age', num: true, get: p => getAge(p), w: 50 },
   { key: 'job', label: 'c_role', get: p => jobLabel(p), w: 150 },
-  { key: 'club', label: 'c_club', get: p => p.club || '', render: p => clubLabel(p), w: 175 },
-  { key: 'nat', label: 'c_nat', get: p => natsLabel(p), w: 115 },
+  { key: 'club', label: 'c_club', get: p => p.club || '', render: p => clubCell(p), w: 175 },
+  { key: 'nat', label: 'c_nat', get: p => natsLabel(p), render: p => natCell(p), w: 115 },
   { key: 'ca', label: 'CA', num: true, get: p => p.ca, render: p => qHtml(p.ca), w: 56 },
   { key: 'pa', label: 'PA', num: true, get: p => p.pa, render: p => qHtml(p.pa), w: 56 },
   { key: 'wage', label: 'c_wage', num: true, get: p => p.wage, fmt: fmtWage, w: 100 },
@@ -1183,6 +1188,28 @@ function clubLabel(p) {
   if (p.clubRep > 0) return `<span class="dim" data-tip="${escHtml(tf('clubNotRead', { r: p.clubRep }))}">${t('clubUnknown')}</span>`;
   // Transfervrij: streepje met tooltip (de status-pill "clubloos" vertelt het al).
   return `<span class="dim" data-help="clubless">–</span>`;
+}
+// ---------- klikbare celwaarden ----------
+// Club, nationaliteit en positie zijn in de tabel aanklikbaar en filteren de lijst op
+// precies die waarde (afhandeling in de tr-handler van renderVisible). De detailkaart en
+// de spelerskaart blijven de platte clubLabel()/natsLabel() gebruiken.
+// Bij een dubbele nationaliteit of positie krijgt elke waarde een eigen span, zodat een
+// klik op "MC" in "DM, MC" alleen op MC filtert.
+function clubCell(p) {
+  if (!p.club) return clubLabel(p);
+  return `<span class="cellfilter" data-club="${escHtml(p.club)}" data-tip="${escHtml(t('filterByClub'))}">${escHtml(p.club)}</span>`;
+}
+function natCell(p) {
+  const r = natRec(p);
+  const main = r && r[NAT_LANG_IDX[state.lang] ?? 1];
+  const labels = main ? [main] : (p.nat || []).map(natLabel).filter(Boolean);
+  if (!labels.length) return '<span class="dim">–</span>';
+  return labels.map(n => `<span class="cellfilter" data-nat="${escHtml(n)}" data-tip="${escHtml(t('filterByNat'))}">${escHtml(n)}</span>`).join(', ');
+}
+function posCell(p) {
+  const arr = ((p.posArr && p.posArr.length) ? p.posArr : (p.pos ? p.pos.split(/,\s*/) : [])).filter(Boolean);
+  if (!arr.length) return '<span class="dim">–</span>';
+  return arr.map(x => `<span class="cellfilter" data-pos="${escHtml(x)}" data-tip="${escHtml(t('filterByPos'))}">${escHtml(x)}</span>`).join(', ');
 }
 // Gememoiseerd per speler (_ev); zie metaScore. Consumers lezen het object alleen.
 function estValue(p) {
@@ -1612,42 +1639,129 @@ function bestRoles(p, n = 5) {
 }
 const roleClass = v => v == null ? '' : v >= 15 ? 'g5' : v >= 13 ? 'g4' : v >= 10.5 ? 'g3' : v >= 8 ? 'g2' : 'g1';
 
-// ---------- meta-score (attribuut-aandelen, kolom 18) ----------
-// Veldspelers: het getal is het aandeel van dat attribuut. 0 en negatieve aandelen
-// tellen niet mee. De score blijft een gewogen gemiddelde op de 1-20-schaal:
-// som(waarde × aandeel) / som(aandelen). Keepers houden hun eigen weging; de
-// aandelen-tabel dekt geen keeperattributen.
-const META_W = {
-  Pace: 19.4, JumpingReach: 15.4, Acceleration: 15.4, Stamina: 14.0,
-  Pressure: 5.2, Anticipation: 4.8, Strength: 4.8, Concentration: 4.4,
-  Dribbling: 3.6, NaturalFitness: 2.8, Determination: 2.8, Positioning: 2.6,
-  Finishing: 2.2, Flair: 1.8, Bravery: 1.4, Consistency: 1.2,
-  Aggression: 1.2, Decisions: 1.2, Crossing: 0.6, Agility: 0.2,
+// ---------- meta-score (FM27, positioneel) ----------
+// Veldspelers: per positiegroep een eigen aandeel, elk genormaliseerd op 105.
+// 0-aandelen tellen niet mee. De score blijft een gewogen gemiddelde op de 1-20-schaal:
+// som(waarde × aandeel) / som(aandelen). Bij meerdere groepen is de score het
+// impact-gewogen gemiddelde van die groepsscores (spits 1.6 … middenveld 0.6);
+// één groep maakt de vermenigvuldiger neutraal, de schaal blijft 1-20.
+// Keepers houden hun eigen weging; de aandelen-tabel dekt geen keeperattributen.
+const META_POS_IMPACT = { ST: 1.6, AM_W: 1.0, WB_FB: 1.0, CB: 0.9, DM_CM: 0.6 };
+const META_POS_W = {
+  ST: {
+    Pace: 19.4, Acceleration: 15.1, JumpingReach: 15.6, Stamina: 7.3,
+    Anticipation: 7.9, Strength: 4.5, Dribbling: 2.8, Concentration: 5.6,
+    Balance: 5.1, Finishing: 5.8, Pressure: 2.8, ImportantMatches: 3.2,
+    Determination: 2.0, Heading: 3.2, FirstTouch: 2.1, Composure: 0.3,
+    WorkRate: 0.3, Professionalism: 0.3, Decisions: 1.7,
+  },
+  AM_W: {
+    Pace: 18.4, Acceleration: 14.3, JumpingReach: 2.4, Stamina: 9.6,
+    Anticipation: 7.2, Strength: 12.4, Dribbling: 6.7, Concentration: 3.8,
+    Balance: 5.7, Finishing: 6.7, Pressure: 0.5, ImportantMatches: 2.4,
+    Determination: 3.3, Heading: 3.3, Composure: 2.9, WorkRate: 1.0,
+    Professionalism: 2.4, Decisions: 1.0, Agility: 1.0,
+  },
+  WB_FB: {
+    Pace: 20.4, Acceleration: 16.8, JumpingReach: 5.1, Stamina: 14.3,
+    Anticipation: 7.7, Strength: 7.7, Dribbling: 7.7, Concentration: 2.5,
+    Balance: 4.6, Finishing: 3.1, Pressure: 2.5, ImportantMatches: 3.1,
+    Determination: 0.5, FirstTouch: 2.0, Composure: 2.0, Professionalism: 0.5,
+    Decisions: 2.0, Crossing: 2.5,
+  },
+  CB: {
+    Pace: 13.4, Acceleration: 19.4, JumpingReach: 19.9, Stamina: 8.0,
+    Anticipation: 8.0, Strength: 4.0, Dribbling: 2.2, Concentration: 5.6,
+    Balance: 4.6, Pressure: 4.6, ImportantMatches: 2.2, Determination: 4.0,
+    Heading: 1.7, FirstTouch: 0.6, WorkRate: 3.4, Professionalism: 3.4,
+  },
+  DM_CM: {
+    Pace: 9.1, Acceleration: 18.7, JumpingReach: 7.3, Stamina: 7.3,
+    Anticipation: 1.6, Strength: 6.5, Dribbling: 6.5, Concentration: 4.9,
+    Balance: 1.6, Finishing: 3.2, Pressure: 5.7, ImportantMatches: 5.7,
+    Determination: 4.1, Heading: 0.8, FirstTouch: 6.5, Composure: 5.7,
+    WorkRate: 4.1, Professionalism: 0.8, Decisions: 0.8, Agility: 4.1,
+  },
 };
-// Keepers: eigen gewichten uit harvestgreen22's FM24-keeperhertest op FM-Arena
-// (fm-arena.com/thread/18816, winrate-effect per attribuut, 2000-7000 wedstrijden per
-// meting). FM27-keeperdata bestaat nog niet; het totale keeperseffect is volgens dezelfde
-// test grofweg een kwart van dat van veldspelers. Pressure is bij ons een
-// persoonlijkheidsveld (p.pressure), geen attrs-key; weightedMeta pakt hem daar.
-const META_GK_W = { Reflexes: 12.8, Agility: 8.0, Acceleration: 4.7, Pressure: 4.1, Pace: 3.5, AerialReach: 3.4 };
-// Pressure en Consistency gebruiken 0 voor "onbekend". Een PA-projectie bevat die
-// verborgen velden niet; dan telt de huidige waarde mee.
+// FM-positie → metagroep. ML/MR horen bij de vleugel (zelfde profiel als AML/AMR).
+const META_POS_OF = {
+  ST: 'ST', AML: 'AM_W', AMR: 'AM_W', AMC: 'AM_W', ML: 'AM_W', MR: 'AM_W',
+  DL: 'WB_FB', DR: 'WB_FB', WBL: 'WB_FB', WBR: 'WB_FB',
+  DC: 'CB', SW: 'CB', DM: 'DM_CM', MC: 'DM_CM',
+};
+// Tactische rol in Beste XI / transferrapport → dezelfde metagroep.
+const ROLE_META_GROUP = {
+  gk: 'GK', sk: 'GK', cd: 'CB', bpd: 'CB', fb: 'WB_FB', wb: 'WB_FB',
+  dm: 'DM_CM', dlp: 'DM_CM', bwm: 'DM_CM', cm: 'DM_CM', b2b: 'DM_CM', ap: 'DM_CM',
+  wing: 'AM_W', if: 'AM_W', am: 'AM_W', af: 'ST', poacher: 'ST', tm: 'ST', cf: 'ST',
+};
+function metaGroupsOf(p) {
+  const gs = [];
+  const seen = new Set();
+  for (const pos of p.posArr || []) {
+    const g = META_POS_OF[pos];
+    if (g && !seen.has(g)) { seen.add(g); gs.push(g); }
+  }
+  return gs;
+}
+// Keepers: FM27 Extended 9, genormaliseerd op 105. De score deelt door de som van de
+// aanwezige aandelen (niet door een vaste 105), zodat een onbekend verborgen attribuut
+// de 1-20-schaal niet indrukt. Important Matches 0 = onbekend en telt niet mee.
+const META_GK_W = {
+  Agility: 32.5, Reflexes: 29.4, AerialReach: 11.8, Concentration: 8.8,
+  ImportantMatches: 5.4, Acceleration: 4.9, Anticipation: 4.9,
+  CommandOfArea: 4.4, Handling: 2.9,
+};
+// Pressure, Professionalism, Consistency en Important Matches gebruiken 0 voor "onbekend".
+// Een PA-projectie bevat die verborgen velden niet; dan telt de huidige waarde mee.
 function metaAttr(p, attrs, k) {
   if (k === 'Pressure') return p.pressure > 0 ? p.pressure : null;
+  if (k === 'Professionalism') return p.professionalism > 0 ? p.professionalism : null;
   let v = attrs ? attrs[k] : null;
   if (v == null && p.attrs && attrs !== p.attrs) v = p.attrs[k];
   if (v == null) return null;
-  if (k === 'Consistency' && !(v > 0)) return null;
+  if ((k === 'Consistency' || k === 'ImportantMatches') && !(v > 0)) return null;
   return v;
 }
-function weightedMeta(p, attrs) {
-  const W = (p.posArr || []).includes('GK') ? META_GK_W : META_W;
+function scoreWithWeights(p, attrs, W) {
   let sum = 0, w = 0;
   for (const k in W) {
+    const share = W[k];
+    if (!(share > 0)) continue;
     const v = metaAttr(p, attrs, k);
-    if (v != null) { sum += v * W[k]; w += W[k]; }
+    if (v != null) { sum += v * share; w += share; }
   }
   return w ? sum / w : null;
+}
+// group: vaste metagroep (Beste XI-slot). Zonder group: natuurlijke posities van de speler.
+// GK blijft de keeperweging, ook als hij een veldpositie erbij heeft.
+function weightedMeta(p, attrs, group) {
+  if (group === 'GK' || (group == null && (p.posArr || []).includes('GK'))) {
+    const W = META_GK_W;
+    let sum = 0, w = 0;
+    for (const k in W) {
+      const v = metaAttr(p, attrs, k);
+      if (v != null) { sum += v * W[k]; w += W[k]; }
+    }
+    return w ? sum / w : null;
+  }
+  if (group && META_POS_W[group]) return scoreWithWeights(p, attrs, META_POS_W[group]);
+  const groups = metaGroupsOf(p);
+  const use = groups.length ? groups : Object.keys(META_POS_W);
+  let sum = 0, w = 0;
+  for (const g of use) {
+    const avg = scoreWithWeights(p, attrs, META_POS_W[g]);
+    if (avg == null) continue;
+    const m = META_POS_IMPACT[g] || 1;
+    sum += avg * m; w += m;
+  }
+  return w ? sum / w : null;
+}
+// Meta voor een tactische rol. De tabelscore blijft de natuurlijke positie.
+function metaAtRole(p, role) {
+  if (!p || !p.attrs) return null;
+  const g = ROLE_META_GROUP[role];
+  return g ? weightedMeta(p, p.attrs, g) : metaScore(p);
 }
 // Per speler gememoiseerd (_meta): de invoer verandert alleen bij een nieuwe dump, en dan
 // zijn het verse objecten. Zonder cache werd dit bij sorteren/filteren op Meta voor élke
@@ -1722,6 +1836,49 @@ function selectAllPositions() {
     activePos.add(n.dataset.pos);
     n.classList.add('on');
   });
+  applyFilters();
+}
+// Tegenhanger van selectAllPositions: alle posities weer uitzetten (= geen positiefilter).
+// Geen resetTableScroll hier: de lijst wordt juist langer, dus de huidige scrollpositie blijft
+// geldig (het lege-venster-probleem van de klikfilters speelt alleen bij korter worden).
+function clearAllPositions() {
+  if (!activePos.size) return;
+  activePos.clear();
+  syncPitchSelection();
+  applyFilters();
+}
+// Het veld en de klikbare positiecellen in de tabel delen dezelfde selectie (activePos);
+// na een klik vanuit de tabel moet het veld dus bijwerken.
+function syncPitchSelection() {
+  document.querySelectorAll('#pitch-wrap .pos-node').forEach(n => n.classList.toggle('on', activePos.has(n.dataset.pos)));
+}
+// ---------- klikfilters vanuit de tabel ----------
+// Eén klik zet het filter, nog eens op dezelfde waarde klikken haalt het weer weg. De
+// actieve waarde staat gewoon als chip boven de tabel, dus wissen kan ook daar.
+// De lijst springt na een klik naar boven: de aangeklikte rij kan ver buiten de veel
+// kortere resultatenlijst vallen, en dan keek je naar een leeg venster.
+function resetTableScroll() {
+  const w = $('table-wrap');
+  if (w) w.scrollTop = 0;
+}
+function filterByClub(club) {
+  state.clubFilter = state.clubFilter === club ? '' : club;
+  resetTableScroll();
+  applyFilters();
+}
+function filterByNat(label) {
+  // De nationaliteit heeft al een eigen zoekveld (f-nat) met chip; die vullen we, zodat
+  // handmatig bijstellen en wissen hetzelfde blijven werken.
+  $('f-nat').value = $('f-nat').value.trim() === label ? '' : label;
+  resetTableScroll();
+  applyFilters();
+}
+function filterByPos(pos) {
+  const same = activePos.size === 1 && activePos.has(pos);
+  activePos.clear();
+  if (!same) activePos.add(pos);
+  syncPitchSelection();
+  resetTableScroll();
   applyFilters();
 }
 
@@ -2340,6 +2497,9 @@ function applyFilters() {
     // wordt één .includes op een vaste string. Een NUL-teken (\u0000) als scheiding kan nooit in de
     // zoekterm zitten, dus de matchsemantiek (naam óf club bevat de term) is identiek.
     if (name && !(p._q ??= ((p.name || '') + '\u0000' + (p.club || '')).toLowerCase()).includes(name)) return false;
+    // Klik-filter op een clubnaam uit de tabel: exacte naam (het zoekveld blijft
+    // substring-matchen over naam én club).
+    if (state.clubFilter && (p.club || '') !== state.clubFilter) return false;
     const age = getAge(p);
     if (age < ageMin || age > ageMax) return false;
     if ((p.ca ?? 0) < caMin || (p.ca ?? 0) > caMax) return false;
@@ -2445,6 +2605,7 @@ function buildChips() {
   const v = id => $(id).value.trim();
 
   if (v('f-name')) add(`${t('chipSearch')}: "${v('f-name')}"`, clearInput('f-name'));
+  if (state.clubFilter) add(`${t('c_club')}: ${state.clubFilter}`, () => { state.clubFilter = ''; });
   if (activePos.size) add(`${t('position')}: ${[...activePos].join(', ')}`,
     () => { activePos.clear(); document.querySelectorAll('.pos-node').forEach(n => n.classList.remove('on')); });
   if (state.mode === 'staff' && $('f-staffrole').value) add($('f-staffrole').value, () => { $('f-staffrole').value = ''; });
@@ -2892,6 +3053,16 @@ function renderVisible() {
     tr.onclick = e => {
       const star = e.target.closest('[data-star]');
       if (star) { toggleShortlist(+star.dataset.star); e.stopPropagation(); return; }
+      // Club, nationaliteit en positie zijn klikfilters (zie clubCell/natCell/posCell);
+      // zo'n klik opent dus geen profiel.
+      const cf = e.target.closest('[data-club],[data-nat],[data-pos]');
+      if (cf) {
+        if (cf.dataset.club != null) filterByClub(cf.dataset.club);
+        else if (cf.dataset.nat != null) filterByNat(cf.dataset.nat);
+        else filterByPos(cf.dataset.pos);
+        e.stopPropagation();
+        return;
+      }
       const p = state.filtered[+tr.dataset.i];
       if (e.target.closest('.pname')) copyName(p.name);
       showDetail(p);
@@ -4166,7 +4337,7 @@ function canPlaySlot(p, slot) {
 function findOptimalLineup(squad, formation) {
   const candidatesForSlot = formation.map(f => {
     let list = squad.map(p => {
-      let score = metaScore(p);
+      let score = metaAtRole(p, f.role);
       const fitsSlot = canPlaySlot(p, f);
       return { player: p, score: fitsSlot && score != null ? score : -1 };
     }).filter(c => c.score > 0);
@@ -4451,14 +4622,14 @@ function openMercatoModal() {
   let suggestions = [];
   formation.forEach((slot, idx) => {
     let currentSlot = optimalLineup.lineup[idx];
-    let currentScore = currentSlot && currentSlot.player ? metaScore(currentSlot.player) || 0 : 0;
+    let currentScore = currentSlot && currentSlot.player ? metaAtRole(currentSlot.player, slot.role) || 0 : 0;
     let currentName = currentSlot && currentSlot.player ? currentSlot.player.name : t('noneLabel');
     let targets = [];
 
     state.players.forEach(dbPlayer => {
       if ((dbPlayer.club || '').toLowerCase() === myClub || mercatoDismissed.has(dbPlayer.id)) return;
       if (!canPlaySlot(dbPlayer, slot)) return;
-      let dbScore = metaScore(dbPlayer);
+      let dbScore = metaAtRole(dbPlayer, slot.role);
       if (dbScore == null) return;
       let improvement = dbScore - currentScore;
       if (improvement <= 0.2) return;
@@ -4819,6 +4990,7 @@ $('btn-clear').onclick = () => {
   $('f-staffrole').value = ''; $('f-gender').value = ''; $('f-interest').value = '0'; $('f-contract').value = ''; $('f-tstatus').value = '';
   $('f-foot').value = '';
   state.advF = []; saveAdv();
+  state.clubFilter = '';   // klikfilter op clubnaam hoort ook bij "wissen"
   activePos.clear();
   document.querySelectorAll('.pos-node').forEach(n => n.classList.remove('on'));
   state.myTeam = 'all'; renderMyTeamChips();   // subteamchip (Eerste/Jeugd) hoort ook bij "wissen"
@@ -5245,6 +5417,7 @@ initHeartbeat();
 
 buildPitch();
 $('btn-pos-all').onclick = selectAllPositions;
+$('btn-pos-none').onclick = clearAllPositions;
 applyLang();
 document.body.classList.toggle('hide-capa', state.hideCapa);
 document.body.classList.toggle('hide-meta', state.hideMeta);

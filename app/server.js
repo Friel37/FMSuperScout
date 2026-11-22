@@ -582,7 +582,10 @@ const server = http.createServer((req, res) => {
     res.writeHead(404); res.end('Not found');
     return;
   }
-  res.writeHead(200, { 'Content-Type': MIME[path.extname(full)] || 'application/octet-stream' });
+  res.writeHead(200, {
+    'Content-Type': MIME[path.extname(full)] || 'application/octet-stream',
+    'Cache-Control': 'no-store',
+  });
   const sf = fs.createReadStream(full);
   sf.on('error', () => res.destroy());
   sf.pipe(res);

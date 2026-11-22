@@ -1,4 +1,13 @@
-﻿# FM27 validation — 27.0.1+2503222, 2026-11-12
+﻿# FM27 validation — 27.1.0+2505117, 2026-11-22
+
+Target: Windows Steam 4530370 / build 26620374; native product 27.1.0+2505117.
+Database arrays moved by +0x5B0A8 from the 27.0.1 pins: players 0x587B8B8,
+staff 0x587B900, clubs 0x587BA70. Vtables: player-coach 0x50EAC28 (player array,
+offset 0x380) and 0x50EAC10 (skipped in the staff array); human manager 0x4E2170C
+(offset 0x440). Ordinary player and staff offsets stay 0x288 and 0x100.
+Live read: 181,512 players and 64,742 staff, manager Ryan Friel at Newcastle United.
+
+# FM27 validation — 27.0.1+2503222, 2026-11-12
 
 Target: Windows Steam 4530370 / build 26577676; native product 27.0.1+2503222.
 The version gate is the only reader change. Array and vtable RVAs stay on the

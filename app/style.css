@@ -380,11 +380,14 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 .pm-ok.danger { background: var(--bad); color: #2a0808; }
 
 /* ---------- voetbalveld positiefilter ---------- */
-#btn-pos-all {
-  width: 100%; margin-bottom: 8px; background: var(--bg3); border: 1px solid var(--border);
+/* twee knoppen boven het veld: alles aan / alles uit */
+.pos-btns { display: flex; gap: 6px; margin-bottom: 8px; }
+.pos-btns button {
+  flex: 1 1 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  background: var(--bg3); border: 1px solid var(--border);
   color: var(--muted); padding: 5px 8px; border-radius: 6px; cursor: pointer; font-size: 12.5px;
 }
-#btn-pos-all:hover { color: var(--text); border-color: var(--accent2); }
+.pos-btns button:hover { color: var(--text); border-color: var(--accent2); }
 #pitch-wrap { position: relative; width: 100%; }
 #pitch-wrap svg { width: 100%; height: auto; display: block; }
 .pos-node { cursor: pointer; }
@@ -443,6 +446,9 @@ input[type=number]::-webkit-outer-spin-button, input[type=number]::-webkit-inner
 #grid td.dim { color: var(--muted); }
 #grid td.pname { font-weight: 600; }
 #grid td.pname:hover { color: var(--accent2); text-decoration: underline; text-underline-offset: 2px; }
+/* Celwaarden met een klikfilter (club, nationaliteit, positie): hover maakt ze herkenbaar. */
+#grid td .cellfilter { cursor: pointer; }
+#grid td .cellfilter:hover { color: var(--accent2); text-decoration: underline; text-underline-offset: 2px; }
 /* huurstatus onder "Mijn club": verhuurd = rood, gehuurd = blauw (FM-conventie) */
 #grid td.pname.loan-out { color: #e08080; }
 #grid td.pname.loan-in { color: #5a9fe8; }

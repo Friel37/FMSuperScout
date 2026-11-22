@@ -3,8 +3,8 @@
 This branch uses an external, read-only .NET reader and the existing local web viewer.
 BepInEx, game-folder changes and the in-game F9 hotkey are not used.
 
-Supported: Steam App ID 4530370, build 26577676, game_plugin.dll product version
-27.0.1+2503222. Other builds are rejected until their memory layout is verified.
+Supported: Steam App ID 4530370, build 26620374, game_plugin.dll product version
+27.1.0+2505117. Other builds are rejected until their memory layout is verified.
 
 ## Start
 
@@ -43,7 +43,9 @@ Native player, staff and club arrays replace the old whole-process heap scan.
 
 Field-layout leads came from the local fm-editor FM27 layout documentation and were
 checked against this Windows process. The reader is independent of that application.
-See [FM27 validation](docs/fm27-validation.md) for tested coverage and limitations.
+See [FM27 validation](docs/fm27-validation.md) for tested coverage and limitations,
+[architecture](docs/architecture.md) for components, HTTP API and data flow, and
+[build coupling](docs/fm27-build-coupling.md) for the pinned offsets and the re-validation steps.
 
 The viewer retains search, filters, comparisons, shortlist, staff, squad analysis and
 history. **Export to FM27** writes the shortlist's players as an FM shortlist file into
